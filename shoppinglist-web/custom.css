@@ -1,0 +1,19 @@
+body {
+    background-color: #202020;
+    color: #f2f2f2;
+}
+
+#pageTop {
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.bi-basket2-fill {
+    font-size: 100px;
+    color: #b92b27;
+}
+
+.container {
+    width: 100%;
+}
+
