@@ -65,17 +65,16 @@ public class ItemController {
         }
     }
 
-    //curl -X PUT -H 'Content-Type: application/json' localhost:8090/update/purchased/52
-    @PutMapping("update/purchased/{id}")
-    public ResponseEntity<APIResponse<String>> updateItem(@PathVariable Long id) {
+    //curl -X PUT -H 'Content-Type: application/json' localhost:8090/purchase --data '{"id":2}'
+    @PutMapping("/purchase")
+    public ResponseEntity<APIResponse<String>> updateItem(@RequestBody Item item) {
 
         try {
-            itemService.purchaseItem(id);
+            itemService.purchaseItem(item.getId());
 
-            URI location = URI.create("/");
             String successMessage = "Item purchased successfully";
             APIResponse<String> response = new APIResponse<>(HttpStatus.ACCEPTED.value(), successMessage);
-            return ResponseEntity.created(location).body(response);
+            return ResponseEntity.accepted().body(response);
 
         } catch (NoSuchFieldException e) {
             APIResponse<String> response = new APIResponse<>(HttpStatus.NOT_FOUND.value(), e.getMessage());
