@@ -68,3 +68,12 @@ function updatePurchaseItemToBackend(data) {
         });
 
 }
+
+function addItemToShoppingList() {
+    const itemName = document.getElementById("itemNameInput");
+    const itemText = itemName.value.trim();
+    if (itemText !== "") {
+        postItemToBackend({ "name": itemText });
+        itemName.value = "";
+    }
+}
