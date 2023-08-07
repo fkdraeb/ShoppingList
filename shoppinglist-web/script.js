@@ -10,8 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const itemText = itemName.value.trim();
         if (itemText !== "") {
             postItemToBackend({ "name": itemText });
-
-            addItemToShoppingList(itemText);
             itemName.value = "";
         }
     });
@@ -22,11 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const itemId = item.getAttribute('data-item-id')
 
             updatePurchaseItemToBackend({ "id": itemId});
-
-
             item.classList.toggle("text-decoration-line-through");
         }
     });
-
 
 });

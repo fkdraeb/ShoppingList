@@ -37,13 +37,13 @@ public class ItemController {
 
     //curl -X POST -H 'Content-Type: application/json' localhost:8090 --data '{"name":"Batatas"}'
     @PostMapping("/")
-    public ResponseEntity<APIResponse<String>> createItem(@RequestBody Item item) {
-        itemRepository.save(item);
+    public ResponseEntity<APIResponse<Item>> createItem(@RequestBody Item item) {
+        Item createdItem = itemRepository.save(item);
 
         URI location = URI.create("/");
         String successMessage = "Item created successfully";
-        APIResponse<String> response = new APIResponse<>(HttpStatus.CREATED.value(), successMessage);
-        response.setData(item.toString());
+        APIResponse<Item> response = new APIResponse<>(HttpStatus.CREATED.value(), successMessage);
+        response.setData(createdItem);
         return ResponseEntity.created(location).body(response);
     }
 
