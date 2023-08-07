@@ -41,10 +41,11 @@ public class ItemService {
     }
 
     public void purchaseItem (Long id) throws NoSuchFieldException {
-        Optional<Item> itemToUpdate = itemRepository.findById(id);
+        Optional<Item> itemRepositoryById = itemRepository.findById(id);
 
-        if(itemToUpdate.isPresent()) {
-            itemToUpdate.get().setPurchased(true);
+        if(itemRepositoryById.isPresent()) {
+            Item itemToUpdate = itemRepositoryById.get();
+            itemToUpdate.setPurchased(!itemToUpdate.isPurchased());
             itemRepository.flush();
         }
         else

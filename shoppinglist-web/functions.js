@@ -11,9 +11,10 @@ function fetchItemsFromBackend() {
                 itemList.classList.add("list-group-item");
                 itemList.setAttribute('data-item-id', item.id);
                 itemList.innerHTML = `
-                        <input type="checkbox" class="form-check-input me-2">
+                        <input type="checkbox" class="form-check-input me-2" ${item.purchased ? "checked" : ""}>
                         ${item.name}
                     `;
+
                 if (item.purchased)
                     itemList.classList.toggle("text-decoration-line-through");
                 shoppingList.appendChild(itemList);
