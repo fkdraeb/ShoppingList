@@ -81,4 +81,19 @@ public class ItemController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+
+    @DeleteMapping("/")
+    public ResponseEntity<APIResponse<String>> deleteItem(@RequestBody Item item) {
+
+        try {
+            itemService.deleteItem(item.getId());
+
+            String successMessage = "Item deleted successfully";
+            APIResponse<String> response = new APIResponse<>(HttpStatus.ACCEPTED.value(), successMessage);
+            return ResponseEntity.accepted().body(response);
+        } catch (NoSuchFieldException e) {
+            APIResponse<String> response = new APIResponse<>(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
 }

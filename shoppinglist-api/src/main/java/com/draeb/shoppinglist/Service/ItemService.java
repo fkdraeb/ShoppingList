@@ -41,16 +41,28 @@ public class ItemService {
     }
 
     public void purchaseItem (Long id) throws NoSuchFieldException {
-        Optional<Item> itemRepositoryById = itemRepository.findById(id);
+        Optional<Item> itemOptional = itemRepository.findById(id);
 
-        if(itemRepositoryById.isPresent()) {
-            Item itemToUpdate = itemRepositoryById.get();
+        if(itemOptional.isPresent()) {
+            Item itemToUpdate = itemOptional.get();
             itemToUpdate.setPurchased(!itemToUpdate.isPurchased());
             itemRepository.flush();
         }
         else
             throw new NoSuchFieldException("There is no product with " + id + " id");
 
+    }
+
+    public void deleteItem (Long id) throws NoSuchFieldException {
+        Optional<Item> itemOptional = itemRepository.findById(id);
+
+        if (itemOptional.isPresent()) {
+            Item itemToDelete = itemOptional.get();
+            itemRepository.delete(itemToDelete);
+            itemRepository.flush();
+        }
+        else
+            throw new NoSuchFieldException("There is no product with " + id + " id");
     }
 
 }

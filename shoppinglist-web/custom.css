@@ -16,3 +16,17 @@ body {
 .container {
     width: 100%;
 }
+
+.bi-trash {
+    color: #b92b27;
+    background-color: transparent;
+}
+
+.list-group-item {
+    display: flex;
+    align-items: center;
+}
+
+.delete-item-btn {
+    margin-left: auto;
+}

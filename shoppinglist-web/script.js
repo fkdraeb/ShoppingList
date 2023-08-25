@@ -1,7 +1,8 @@
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function () {              //document.addEventListener("DOMContentLoaded", function () {
     const addItemBtn = document.getElementById("addItemBtn");
     const shoppingList = document.getElementById("shoppingList");
     const itemName = document.getElementById("itemNameInput");
+
 
     fetchItemsFromBackend();
 
@@ -15,8 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
-
     shoppingList.addEventListener("change", function (event) {
         if (event.target.type === "checkbox") {
             const item = event.target.closest("li");
@@ -25,6 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
             updatePurchaseItemToBackend({ "id": itemId });
             item.classList.toggle("text-decoration-line-through");
         }
+    });
+
+    $(document).on("click", '.delete-item-btn', function (event) {
+        const item = event.target.closest("li");
+        const itemId = item.getAttribute('data-item-id')
+
+        deleteItemToBackend({ "id": itemId }, item);
     });
 
 });

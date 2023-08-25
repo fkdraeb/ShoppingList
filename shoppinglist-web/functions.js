@@ -13,6 +13,9 @@ function fetchItemsFromBackend() {
                 itemList.innerHTML = `
                         <input type="checkbox" class="form-check-input me-2" ${item.purchased ? "checked" : ""}>
                         ${item.name}
+                        <button class="btn delete-item-btn float-end">
+                            <i class="bi bi-trash"></i>                        
+                        </button>
                     `;
 
                 if (item.purchased)
@@ -41,6 +44,9 @@ function postItemToBackend(data) {
             itemList.innerHTML = `
                         <input type="checkbox" class="form-check-input me-2">
                         ${data.data.name}
+                        <button class="btn delete-item-btn float-end">
+                            <i class="bi bi-trash"></i>                        
+                        </button>
                     `;
             if (data.data.purchased)
                 itemList.classList.toggle("text-decoration-line-through");
@@ -66,7 +72,6 @@ function updatePurchaseItemToBackend(data) {
         .catch(error => {
             console.error('Error updating item:', error);
         });
-
 }
 
 function addItemToShoppingList() {
@@ -76,4 +81,22 @@ function addItemToShoppingList() {
         postItemToBackend({ "name": itemText });
         itemName.value = "";
     }
+}
+
+function deleteItemToBackend(data, itemElement) {
+    fetch(callbackURL, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(data => {
+            itemElement.remove();
+        })
+        .catch(error => {
+            console.error('Error updating item:', error);
+        });
+
 }
