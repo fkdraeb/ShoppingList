@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080"})
 public class ItemController {
 
     private final ItemRepository itemRepository;
