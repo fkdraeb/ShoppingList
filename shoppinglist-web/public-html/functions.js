@@ -119,7 +119,6 @@ function editItemToBackend(data, itemElement) {
     })
         .then(response => response.json())
         .then(data => {
-            itemElement.remove();
         })
         .catch(error => {
             console.error('Error updating item:', error);

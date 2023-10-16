@@ -38,41 +38,48 @@ $(document).ready(function () {              //document.addEventListener("DOMCon
         const itemId = item.getAttribute('data-item-id')
 
         if (item) {
-            const text = item.textContent.trim(); // Get the current text content
+            const originalContent = item.innerHTML;
+
+            const text = item.textContent.trim(); 
             const input = document.createElement("input");
+            input.style.marginRight = "10px"
+            input.style.marginLeft = "12px"
             input.value = text;
             input.classList.add("form-control");
-            
+
             const saveButton = document.createElement("button");
-            saveButton.textContent = "Save";
-            saveButton.classList.add("btn", "btn-success", "mr-2");
-      
+            saveButton.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                </svg> `;
+            saveButton.classList.add("btn", "btn-success");
+
             const cancelButton = document.createElement("button");
-            cancelButton.textContent = "Cancel";
+            cancelButton.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg> `;
+            cancelButton.style.marginLeft = "10px";
             cancelButton.classList.add("btn", "btn-secondary");
-      
-            item.textContent = ""; // Clear the content of the <li>
+
+            item.textContent = ""; 
             item.appendChild(input);
             item.appendChild(saveButton);
             item.appendChild(cancelButton);
             input.focus();
-      
-            // Add an event listener to save the changes
+
             saveButton.addEventListener("click", function () {
-              const newText = input.value;
-              // Send newText to the backend via an AJAX request or any suitable method
-              // After sending the data, you can update the item with the new text
-              item.textContent = newText;
+                const newText = input.value;
+                editItemToBackend({ "id": itemId, "name": newText }, item);
+                item.innerHTML = originalContent.replace(text, newText);
             });
-      
-            // Add an event listener to cancel the editing
+
             cancelButton.addEventListener("click", function () {
-              item.textContent = text;
+                item.innerHTML = originalContent; 
             });
-          }
-
-
-        //editItemToBackend({ "id": itemId }, item);
+        }
     });
+
+
 
 });

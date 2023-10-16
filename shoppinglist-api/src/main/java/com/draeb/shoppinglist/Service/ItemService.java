@@ -20,8 +20,8 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public void updateItem (Long id, Item updatedItem) throws NoSuchFieldException {
-        Optional<Item> existingItem = itemRepository.findById(id);
+    public void updateItem (Item updatedItem) throws NoSuchFieldException {
+        Optional<Item> existingItem = itemRepository.findById(updatedItem.getId());
 
         if(existingItem.isPresent()) {
             Item itemToUpdate = existingItem.get();
@@ -37,7 +37,7 @@ public class ItemService {
             }
         }
         else
-            throw new NoSuchFieldException("There is no product with " + id + " id");
+            throw new NoSuchFieldException("There is no product with " + updatedItem.getId() + " id");
     }
 
     public void purchaseItem (Long id) throws NoSuchFieldException {
