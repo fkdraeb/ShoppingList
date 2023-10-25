@@ -17,6 +17,8 @@ function fetchItemsFromBackend() {
         .then(data => {
             const shoppingList = document.getElementById('shoppingList');
 
+            data.sort((a,b) => a.id - b.id);
+            
             data.forEach(item => {
                 const itemList = document.createElement("li");
                 itemList.classList.add("list-group-item");
@@ -25,7 +27,6 @@ function fetchItemsFromBackend() {
                         <input type="checkbox" class="form-check-input me-2" ${item.purchased ? "checked" : ""}>
                         ${item.name}
                         ${editAndDeleteButtons}
-                        
                     `;
 
                 if (item.purchased)

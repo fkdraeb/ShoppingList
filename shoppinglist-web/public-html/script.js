@@ -1,8 +1,7 @@
-$(document).ready(function () {              //document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function () {              
     const addItemBtn = document.getElementById("addItemBtn");
     const shoppingList = document.getElementById("shoppingList");
     const itemName = document.getElementById("itemNameInput");
-
 
     fetchItemsFromBackend();
 
