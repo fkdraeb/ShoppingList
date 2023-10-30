@@ -33,3 +33,7 @@ body {
 .edit-item-btn {
     margin-left: auto;
 }
+
+#purchasedShoppingList {
+    margin-top: 20px;
+}

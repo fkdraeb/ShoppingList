@@ -15,6 +15,13 @@ public class APIResponse<T> {
         this.status = HttpStatus.valueOf(statusCode).getReasonPhrase();
     }
 
+    public APIResponse(int statusCode, String message, T data) {
+        this.statusCode = statusCode;
+        this.message = message;
+        this.status = HttpStatus.valueOf(statusCode).getReasonPhrase();
+        this.data = data;
+    }
+
     public APIResponse() {
     }
 

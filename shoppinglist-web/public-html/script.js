@@ -1,7 +1,9 @@
-$(document).ready(function () {              
+$(document).ready(function () {
     const addItemBtn = document.getElementById("addItemBtn");
     const shoppingList = document.getElementById("shoppingList");
+    const purchasedShoppingList = document.getElementById("purchasedShoppingList");
     const itemName = document.getElementById("itemNameInput");
+
 
     fetchItemsFromBackend();
 
@@ -25,6 +27,16 @@ $(document).ready(function () {
         }
     });
 
+    purchasedShoppingList.addEventListener("change", function (event) {
+        if (event.target.type === "checkbox") {
+            const item = event.target.closest("li");
+            const itemId = item.getAttribute('data-item-id')
+
+            updatePurchaseItemToBackend({ "id": itemId });
+            item.classList.remove("text-decoration-line-through");
+        }
+    });
+
     $(document).on("click", '.delete-item-btn', function (event) {
         const item = event.target.closest("li");
         const itemId = item.getAttribute('data-item-id')
@@ -39,7 +51,7 @@ $(document).ready(function () {
         if (item) {
             const originalContent = item.innerHTML;
 
-            const text = item.textContent.trim(); 
+            const text = item.textContent.trim();
             const input = document.createElement("input");
             input.style.marginRight = "10px"
             input.style.marginLeft = "12px"
@@ -61,7 +73,7 @@ $(document).ready(function () {
             cancelButton.style.marginLeft = "10px";
             cancelButton.classList.add("btn", "btn-secondary");
 
-            item.textContent = ""; 
+            item.textContent = "";
             item.appendChild(input);
             item.appendChild(saveButton);
             item.appendChild(cancelButton);
@@ -74,7 +86,7 @@ $(document).ready(function () {
             });
 
             cancelButton.addEventListener("click", function () {
-                item.innerHTML = originalContent; 
+                item.innerHTML = originalContent;
             });
         }
     });

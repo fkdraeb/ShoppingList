@@ -65,17 +65,19 @@ public class ItemController {
 
     //curl -X PUT -H 'Content-Type: application/json' localhost:8090/purchase --data '{"id":2}'
     @PutMapping("/purchase")
-    public ResponseEntity<APIResponse<String>> purchaseItem(@RequestBody Item item) {
+    public ResponseEntity<APIResponse<Item>> purchaseItem(@RequestBody Item item) {
 
         try {
             itemService.purchaseItem(item.getId());
+            Item itemFromRepo = itemRepository.getReferenceById(item.getId());
 
             String successMessage = "Item purchased successfully";
-            APIResponse<String> response = new APIResponse<>(HttpStatus.ACCEPTED.value(), successMessage);
+            //APIResponse<String> response = new APIResponse<>(HttpStatus.ACCEPTED.value(), successMessage);
+            APIResponse<Item> response = new APIResponse<>(HttpStatus.ACCEPTED.value(), successMessage, itemFromRepo);
             return ResponseEntity.accepted().body(response);
 
         } catch (NoSuchFieldException e) {
-            APIResponse<String> response = new APIResponse<>(HttpStatus.NOT_FOUND.value(), e.getMessage());
+            APIResponse<Item> response = new APIResponse<>(HttpStatus.NOT_FOUND.value(), e.getMessage(), null);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }

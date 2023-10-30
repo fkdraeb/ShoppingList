@@ -11,14 +11,18 @@ const editAndDeleteButtons = `
                             </svg>             
                         </button>`;
 
+const shoppingList = document.getElementById('shoppingList');
+const purchasedShoppingList = document.getElementById('purchasedShoppingList');
+
+
+
 function fetchItemsFromBackend() {
     fetch(callbackURL)
         .then(response => response.json())
         .then(data => {
-            const shoppingList = document.getElementById('shoppingList');
 
-            data.sort((a,b) => a.id - b.id);
-            
+            data.sort((a, b) => a.id - b.id);
+
             data.forEach(item => {
                 const itemList = document.createElement("li");
                 itemList.classList.add("list-group-item");
@@ -29,9 +33,12 @@ function fetchItemsFromBackend() {
                         ${editAndDeleteButtons}
                     `;
 
-                if (item.purchased)
+                if (item.purchased) {
                     itemList.classList.toggle("text-decoration-line-through");
-                shoppingList.appendChild(itemList);
+                    purchasedShoppingList.appendChild(itemList);
+                }
+                else
+                    shoppingList.appendChild(itemList);
             });
         })
         .catch(error => {
@@ -75,8 +82,8 @@ function updatePurchaseItemToBackend(data) {
         body: JSON.stringify(data)
     })
         .then(response => response.json())
-        .then(data => {
-            //console.log(data);
+        .then(responseData => {
+            movePurchasedItemToCompleteGroup(responseData);
         })
         .catch(error => {
             console.error('Error updating item:', error);
@@ -89,6 +96,20 @@ function addItemToShoppingList() {
     if (itemText !== "") {
         postItemToBackend({ "name": itemText });
         itemName.value = "";
+    }
+}
+
+function movePurchasedItemToCompleteGroup(item) {
+    let itemToMove = item.data;
+    let elementWithCustomAttribute = document.querySelector('[data-item-id="' + itemToMove.id + '"]');
+
+    if (itemToMove.purchased) {
+        shoppingList.removeChild(elementWithCustomAttribute);
+        purchasedShoppingList.appendChild(elementWithCustomAttribute);
+    }
+    else {
+        purchasedShoppingList.removeChild(elementWithCustomAttribute);
+        shoppingList.appendChild(elementWithCustomAttribute);
     }
 }
 
