@@ -3,6 +3,8 @@ $(document).ready(function () {
     const shoppingList = document.getElementById("shoppingList");
     const purchasedShoppingList = document.getElementById("purchasedShoppingList");
     const itemName = document.getElementById("itemNameInput");
+    const collapseBtnPurchasedList = document.getElementById("collapseBtnPurchasedList");
+
 
 
     fetchItemsFromBackend();
@@ -91,6 +93,13 @@ $(document).ready(function () {
         }
     });
 
-
-
+    collapseBtnPurchasedList.addEventListener("click", function () {
+        if (purchasedShoppingList.classList.contains("expanded")) {
+          purchasedShoppingList.classList.remove("expanded");
+          collapseBtnPurchasedList.classList.remove("rotate");
+        } else {
+          purchasedShoppingList.classList.add("expanded");
+          collapseBtnPurchasedList.classList.add("rotate");
+        }
+      });
 });

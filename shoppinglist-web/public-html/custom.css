@@ -21,19 +21,40 @@ body {
     width: 100%;
 }
 
+.list-group {
+    margin: 5vh 0;
+}
+
 .list-group-item {
     display: flex;
     align-items: center;
 }
 
 .delete-item-btn {
-    margin-left:  10px;
+    margin-left: 10px;
 }
 
 .edit-item-btn {
     margin-left: auto;
 }
 
-#purchasedShoppingList {
-    margin-top: 20px;
+.arrow-btn .arrow-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
 }
+
+.arrow-btn.rotate .arrow-icon {
+    transform: rotate(180deg);
+}
+
+.collapse-content {
+    display: flex;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .collapse-content.expanded {
+    opacity: 1;
+    transform: translateY(0);
+  }
