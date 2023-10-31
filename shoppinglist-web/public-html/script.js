@@ -95,11 +95,21 @@ $(document).ready(function () {
 
     collapseBtnPurchasedList.addEventListener("click", function () {
         if (purchasedShoppingList.classList.contains("expanded")) {
-          purchasedShoppingList.classList.remove("expanded");
-          collapseBtnPurchasedList.classList.remove("rotate");
+            purchasedShoppingList.classList.remove("expanded");
+            collapseBtnPurchasedList.classList.remove("rotate");
         } else {
-          purchasedShoppingList.classList.add("expanded");
-          collapseBtnPurchasedList.classList.add("rotate");
+            purchasedShoppingList.classList.add("expanded");
+            collapseBtnPurchasedList.classList.add("rotate");
         }
-      });
+    });
+
+    document.getElementById("alphabeticalSort").addEventListener("click", function (event) {
+        event.preventDefault(); 
+        sortShoppingListAlphabetically("alphabeticOrder");
+    });
+
+    document.getElementById("creationDateSort").addEventListener("click", function (event) {
+        event.preventDefault(); 
+        sortShoppingListAlphabetically("creationDateOrder");
+    });
 });

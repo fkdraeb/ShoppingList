@@ -14,8 +14,6 @@ const editAndDeleteButtons = `
 const shoppingList = document.getElementById('shoppingList');
 const purchasedShoppingList = document.getElementById('purchasedShoppingList');
 
-
-
 function fetchItemsFromBackend() {
     fetch(callbackURL)
         .then(response => response.json())
@@ -146,4 +144,31 @@ function editItemToBackend(data, itemElement) {
             console.error('Error updating item:', error);
         });
 
+}
+
+function sortShoppingListAlphabetically(sortingOrder) {
+    const items = Array.from(shoppingList.getElementsByClassName("list-group-item"));
+
+    if (sortingOrder === "alphabeticOrder") {
+        items.sort((a, b) => {
+            const textA = a.textContent.trim().toLocaleLowerCase();
+            const textB = b.textContent.trim().toLocaleLowerCase();
+            return textA.localeCompare(textB);
+        });
+    }
+    else {
+        items.sort((a, b) => {
+            const idA = a.getAttribute('data-item-id');
+            const idB = b.getAttribute('data-item-id');
+            return idA.localeCompare(idB);
+        });
+    }
+
+    while (shoppingList.firstChild) {
+        shoppingList.removeChild(shoppingList.firstChild);
+    }
+
+    for (const item of items) {
+        shoppingList.appendChild(item);
+    }
 }
