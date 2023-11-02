@@ -105,11 +105,15 @@ $(document).ready(function () {
 
     document.getElementById("alphabeticalSort").addEventListener("click", function (event) {
         event.preventDefault(); 
-        sortShoppingListAlphabetically("alphabeticOrder");
+        sortShoppingList("alphabeticOrder");
     });
 
     document.getElementById("creationDateSort").addEventListener("click", function (event) {
         event.preventDefault(); 
-        sortShoppingListAlphabetically("creationDateOrder");
+        sortShoppingList("creationDateOrder");
+    });
+
+    document.getElementById("sortOrderButton").addEventListener("click", function (event) {
+        reverseSortShoppingList();
     });
 });

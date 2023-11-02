@@ -62,3 +62,7 @@ body {
 .btn.btn-secondary.dropdown-toggle {
     margin-left: 10px;
 }
+
+#sortOrderButton {
+    margin-left: 10px;
+}

@@ -13,6 +13,7 @@ const editAndDeleteButtons = `
 
 const shoppingList = document.getElementById('shoppingList');
 const purchasedShoppingList = document.getElementById('purchasedShoppingList');
+let ascendingOrder = true;
 
 function fetchItemsFromBackend() {
     fetch(callbackURL)
@@ -146,24 +147,23 @@ function editItemToBackend(data, itemElement) {
 
 }
 
-function sortShoppingListAlphabetically(sortingOrder) {
-    const items = Array.from(shoppingList.getElementsByClassName("list-group-item"));
+function sortItemsAlphabetically(items) {
+    return items.sort((a, b) => {
+        const textA = a.textContent.trim().toLocaleLowerCase();
+        const textB = b.textContent.trim().toLocaleLowerCase();
+        return textA.localeCompare(textB);
+    });
+}
 
-    if (sortingOrder === "alphabeticOrder") {
-        items.sort((a, b) => {
-            const textA = a.textContent.trim().toLocaleLowerCase();
-            const textB = b.textContent.trim().toLocaleLowerCase();
-            return textA.localeCompare(textB);
-        });
-    }
-    else {
-        items.sort((a, b) => {
-            const idA = a.getAttribute('data-item-id');
-            const idB = b.getAttribute('data-item-id');
-            return idA.localeCompare(idB);
-        });
-    }
+function sortItemsById(items) {
+    return items.sort((a, b) => {
+        const idA = a.getAttribute('data-item-id');
+        const idB = b.getAttribute('data-item-id');
+        return idA.localeCompare(idB);
+    });
+}
 
+function updateDOM(items) {
     while (shoppingList.firstChild) {
         shoppingList.removeChild(shoppingList.firstChild);
     }
@@ -171,4 +171,62 @@ function sortShoppingListAlphabetically(sortingOrder) {
     for (const item of items) {
         shoppingList.appendChild(item);
     }
+}
+
+function sortShoppingList(sortingOrder) {
+    let items = Array.from(shoppingList.getElementsByClassName("list-group-item"));
+
+    if (sortingOrder === "alphabeticOrder") {
+        sortItemsAlphabetically(items);
+    } else {
+        sortItemsById(items);
+    }
+    sortDescendingOrderButton();
+    ascendingOrder = true;
+    updateDOM(items);
+}
+
+function reverseSortShoppingList() {
+    let items = Array.from(shoppingList.getElementsByClassName("list-group-item"));
+
+
+    items = items.slice().reverse();
+    updateDOM(items);
+
+    if (ascendingOrder)
+        sortAscendingOrderButton();
+
+    else
+        sortDescendingOrderButton();
+
+    ascendingOrder = !ascendingOrder;
+
+}
+
+let sortOrderButton = document.getElementById('sortOrderButton');
+
+function sortAscendingOrderButton() {
+    let ascendingSvgElement = document.createElement('div');
+    ascendingSvgElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-up" viewBox="0 0 16 16">
+    <path d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+  </svg>`;
+
+    while (sortOrderButton.firstChild) {
+        sortOrderButton.removeChild(sortOrderButton.firstChild);
+    }
+
+    sortOrderButton.appendChild(ascendingSvgElement);
+}
+
+function sortDescendingOrderButton() {
+    let descendingSvgElement = document.createElement('div');
+    descendingSvgElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
+    <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+  </svg>`;
+
+    while (sortOrderButton.firstChild) {
+        sortOrderButton.removeChild(sortOrderButton.firstChild);
+    }
+
+    sortOrderButton.appendChild(descendingSvgElement);
 }
