@@ -7,10 +7,6 @@ body {
     color: #f2f2f2;
 }
 
-#pageTop {
-    text-align: center;
-    padding-bottom: 50px;
-}
 
 .bi-basket2-fill {
     font-size: 100px;
@@ -19,6 +15,7 @@ body {
 
 .container {
     width: 100%;
+    padding-top: 100px;
 }
 
 .list-group {
@@ -66,3 +63,37 @@ body {
 #sortOrderButton {
     margin-left: 10px;
 }
+
+/*#navbar {
+    text-align: center;
+    overflow: hidden;
+    padding: 10px 10px; 
+    transition: 0.4s; 
+    width: 100%;
+    top: 0; 
+    z-index: 99;
+  }
+/*
+  @media screen and (max-width: 580px) {
+    #navbar {
+      padding: 10px 10px !important; 
+    }
+    #navbar i {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+  }
+  */
+
+  #navbar {
+    text-align: center;
+    overflow: hidden;
+    padding: 10px 10px;
+    transition: padding 0.4s, font-size 0.4s;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 99;
+  }
+  

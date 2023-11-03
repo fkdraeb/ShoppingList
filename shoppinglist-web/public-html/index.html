@@ -13,17 +13,19 @@
 </head>
 
 <body>
-    <div id="pageTop" class="bg-dark" data-bs-theme="dark">
-        <i class="bi bi-basket2-fill"></i>
-        <h3>Shopping List</h3>
+    <div id="navbar" class="bg-dark" data-bs-theme="dark">
+        <i class="bi bi-basket2-fill" id="logo"></i>
+        <h5>Shopping List</h5>
     </div>
     <div class="container">
         <div class="container mt-4">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" id="itemNameInput" placeholder="Enter a name of a product...">
-                <button class="btn btn-primary" id="addItemBtn">
-                    <i class="bi bi-plus-circle-dotted"></i>
-                </button>
+                <!--<div class="addItem">-->
+                    <button class="btn btn-primary" id="addItemBtn">
+                        <i class="bi bi-plus-circle-dotted"></i>
+                    </button>
+                
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -33,7 +35,6 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="#" id="creationDateSort">Creation Date</a></li>
-                        <!-- active-->
                         <li><a class="dropdown-item" href="#" id="alphabeticalSort">Alphabetically</a></li>
                     </ul>
                 </div>

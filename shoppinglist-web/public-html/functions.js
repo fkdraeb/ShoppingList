@@ -230,3 +230,4 @@ function sortDescendingOrderButton() {
 
     sortOrderButton.appendChild(descendingSvgElement);
 }
+

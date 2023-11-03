@@ -104,16 +104,29 @@ $(document).ready(function () {
     });
 
     document.getElementById("alphabeticalSort").addEventListener("click", function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         sortShoppingList("alphabeticOrder");
     });
 
     document.getElementById("creationDateSort").addEventListener("click", function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         sortShoppingList("creationDateOrder");
     });
 
     document.getElementById("sortOrderButton").addEventListener("click", function (event) {
         reverseSortShoppingList();
     });
+
+    
+    window.onscroll = function () { scrollFunction() };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("navbar").style.padding = "5px 10px";
+            document.getElementById("logo").style.fontSize = "40px";
+        } else {
+            document.getElementById("navbar").style.padding = "10px 10px";
+            document.getElementById("logo").style.fontSize = "100px";
+        }
+    }
 });
