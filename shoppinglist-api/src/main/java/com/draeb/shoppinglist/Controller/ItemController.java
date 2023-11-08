@@ -4,17 +4,15 @@ import com.draeb.shoppinglist.APIResponse;
 import com.draeb.shoppinglist.Model.Item;
 import com.draeb.shoppinglist.Repository.ItemRepository;
 import com.draeb.shoppinglist.Service.ItemService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080"})
+@CrossOrigin(origins = "*" )
 public class ItemController {
 
     private final ItemRepository itemRepository;
@@ -35,7 +33,6 @@ public class ItemController {
         return itemService.getAllItems();
     }
 
-    //curl -X POST -H 'Content-Type: application/json' localhost:8090 --data '{"name":"Batatas"}'
     @PostMapping("/")
     public ResponseEntity<APIResponse<Item>> createItem(@RequestBody Item item) {
         Item createdItem = itemRepository.save(item);
@@ -47,7 +44,6 @@ public class ItemController {
         return ResponseEntity.created(location).body(response);
     }
 
-    //curl -X PUT -H 'Content-Type: application/json' localhost:8090/update/item/52 --data '{"name":"Tomates", "quantity":20}'
     @PutMapping("/")
     public ResponseEntity<APIResponse<String>> updateItem(@RequestBody Item item) {
         try {
@@ -63,7 +59,6 @@ public class ItemController {
         }
     }
 
-    //curl -X PUT -H 'Content-Type: application/json' localhost:8090/purchase --data '{"id":2}'
     @PutMapping("/purchase")
     public ResponseEntity<APIResponse<Item>> purchaseItem(@RequestBody Item item) {
 
@@ -72,7 +67,6 @@ public class ItemController {
             Item itemFromRepo = itemRepository.getReferenceById(item.getId());
 
             String successMessage = "Item purchased successfully";
-            //APIResponse<String> response = new APIResponse<>(HttpStatus.ACCEPTED.value(), successMessage);
             APIResponse<Item> response = new APIResponse<>(HttpStatus.ACCEPTED.value(), successMessage, itemFromRepo);
             return ResponseEntity.accepted().body(response);
 
@@ -84,7 +78,6 @@ public class ItemController {
 
     @DeleteMapping("/")
     public ResponseEntity<APIResponse<String>> deleteItem(@RequestBody Item item) {
-
         try {
             itemService.deleteItem(item.getId());
 

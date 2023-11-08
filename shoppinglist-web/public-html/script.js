@@ -5,8 +5,6 @@ $(document).ready(function () {
     const itemName = document.getElementById("itemNameInput");
     const collapseBtnPurchasedList = document.getElementById("collapseBtnPurchasedList");
 
-
-
     fetchItemsFromBackend();
 
     addItemBtn.addEventListener("click", function () {
@@ -117,7 +115,7 @@ $(document).ready(function () {
         reverseSortShoppingList();
     });
 
-    
+
     window.onscroll = function () { scrollFunction() };
 
     function scrollFunction() {
